@@ -8,7 +8,12 @@ project(tts_test)
 set(CMAKE_CXX_FLAGS " -O3 -fopenmp -std=c++11 ")
 set(CMAKE_C_FLAGS " -O3 -fopenmp -std=c++11 ")
 
-add_library(summer_tts STATIC
+set(CMAKE_SKIP_BUILD_RPATH FALSE) # 编译时加上rpath
+set(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE) # 编译时不使用安装的rpath
+set(CMAKE_INSTALL_RPATH "$ORIGIN/../../lib/${CMAKE_SYSTEM_PROCESSOR}") # 设置安装rpath
+set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE) # 安装的执行文件加上安装rpath
+
+add_library(summer_tts 
                ./src/tn/glog/src/demangle.cc
                ./src/tn/glog/src/logging.cc
                ./src/tn/glog/src/raw_logging.cc
@@ -89,7 +94,11 @@ include_directories(tts_test PUBLIC ./eigen-3.4.0
 target_link_libraries(tts_test summer_tts)
 
 set(CMAKE_INSTALL_PREFIX "../summerTTS_install")                                            
-install(TARGETS tts_test summer_tts)
+install(TARGETS tts_test summer_tts
+  RUNTIME DESTINATION bin/${CMAKE_SYSTEM_PROCESSOR}
+  LIBRARY DESTINATION lib/${CMAKE_SYSTEM_PROCESSOR}
+  ARCHIVE DESTINATION lib/${CMAKE_SYSTEM_PROCESSOR})
+
 install(DIRECTORY include/ DESTINATION include)
 install(FILES test_eng.txt test.txt DESTINATION texts)
 

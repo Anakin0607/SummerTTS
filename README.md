@@ -38,11 +38,18 @@
   ├── single_speaker_english_fast.bin  
   └── single_speaker_fast.bin  
   
+## 编译
+本项目提供两种架构的编译脚本，x86_64和arm64
 
-- 进入Build 目录，执行以下命令：  
-  cmake ..  
-  make  
-- 编译完成后，会在Build 目录中生成 tts_test 执行程序  
+如需要编译`x86_64`版本，则运行
+```sh
+./build-amd64-linux-gnu.sh
+```
+若需要`arm64`版本，则运行
+```sh
+./build-aarch64-linux-gnu.sh
+```
+- 编译完成后，会将可执行文件安装到summerTTS_install/bin对应的目录下
 - 运行下列命令，测试中文语音合成（TTS）：  
   ./tts_test ../test.txt ../models/single_speaker_fast.bin out.wav   
 - 运行下列命令，测试英文语音合成（TTS）：  
@@ -61,6 +68,8 @@
   第二个参数指定说话人的id 用于合成语音，该参数对多说话人模型有效，对单说话人模型，固定为0。说话人的个数可由接口 int32_t getSpeakerNum() 返回，有效id 为 0 到 该接口返回的说话人数量减1。  
   第三个参数 lengthScale 表示合成语音的语速，其值越大表示语速越慢。  
 - 待合成的文本中可以包含阿拉伯数字和标点，但因为本项目的 文本正则化(TN) 模块还很粗糙，对于英文字符，会直接忽略。也因为文本正则化(TN) 模块还很粗糙，对不同语境下的多音字发音有时候会不准确。
+
+- 编译生成的库文件在summerTTS_install/lib目录下，默认生成动态库，如需静态库，在对应的脚本中将cmake后的`-DBUILD_SHARED_LIBS`改为`-DBUILD_STATIC_LIBS`即可
 
 # 后续开发
 - 后续将开放模型训练和转化脚本

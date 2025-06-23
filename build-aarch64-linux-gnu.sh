@@ -17,8 +17,7 @@ cd $dir
 
 cmake \
     -DCMAKE_TOOLCHAIN_FILE=./toolchains/aarch64-linux-gnu.toolchain.cmake \
-    -DCMAKE_INSTALL_BINDIR=bin/aarch64 \
-    -DCMAKE_INSTALL_LIBDIR=lib/aarch64 ..
+    -DBUILD_SHARED_LIBS=ON ..
 
 make -j8
 make install
