@@ -69,6 +69,7 @@ void convertAudioToWavBuf(
 #include "hanzi2phoneid.h"
 #include <iostream>
 #include <fstream>
+#include <sys/time.h>
 
 using namespace std;
 
@@ -129,8 +130,17 @@ int main(int argc, char ** argv)
     }
     else
     {
-        int32_t retLen = 0;
-        int16_t * wavData = synthesizer->infer(line,0, 1.0,retLen);
+        int32_t retLen = 0;//采样点数量
+        //add timer to calc rtf
+        struct timeval start,end;
+        gettimeofday(&start, NULL);
+        int16_t * wavData = synthesizer->infer(line, 0, 1.0, retLen);
+        gettimeofday(&end, NULL);
+        long timeuse = 1000000*(end.tv_sec - start.tv_sec) + end.tv_usec-start.tv_usec;
+
+        double time_used = (double)timeuse/1000000;
+        double audio_secs = (double)retLen / 16000;
+        printf("[TTS test]: Use %.2lf seconds to synthes %.2lf s audio, rtf is: %.2lf\n", time_used, audio_secs, time_used / audio_secs);
 
         char * dataForFile = new char[retLen*sizeof(int16_t)+44];
         convertAudioToWavBuf(dataForFile, (char *)wavData, retLen*sizeof(int16_t));
