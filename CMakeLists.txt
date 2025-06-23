@@ -8,8 +8,7 @@ project(tts_test)
 set(CMAKE_CXX_FLAGS " -O3 -fopenmp -std=c++11 ")
 set(CMAKE_C_FLAGS " -O3 -fopenmp -std=c++11 ")
 
-add_executable(tts_test
-               ./test/main.cpp
+add_library(summer_tts STATIC
                ./src/tn/glog/src/demangle.cc
                ./src/tn/glog/src/logging.cc
                ./src/tn/glog/src/raw_logging.cc
@@ -80,14 +79,17 @@ add_executable(tts_test
                ./src/models/Generator_Istft.cpp
                ./src/models/Generator_MBB.cpp
                ./src/models/SynthesizerTrn.cpp)
+add_executable(tts_test ./test/main.cpp)
 
 include_directories(tts_test PUBLIC ./eigen-3.4.0
                                     ./src/tn/header
                                     ./include
                                     ./src/header)
 
+target_link_libraries(tts_test summer_tts)
+
 set(CMAKE_INSTALL_PREFIX "../summerTTS_install")                                            
-install(TARGETS tts_test)
+install(TARGETS tts_test summer_tts)
 install(DIRECTORY include/ DESTINATION include)
 install(FILES test_eng.txt test.txt DESTINATION texts)
 

@@ -19,7 +19,7 @@ cmake \
     -DCMAKE_INSTALL_BINDIR=bin/aarch64 \
     -DCMAKE_INSTALL_LIBDIR=lib/aarch64 ..
 
-make -j4
+make -j8
 make install
 
 rm ../aarch64-linux-gnu-*
