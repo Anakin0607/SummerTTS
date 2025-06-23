@@ -105,7 +105,7 @@ int32_t * hanzi2phoneid::convert(string line, int32_t & len, const vector<string
         }
     }
 
-    vector<pair<bool, vector<string>>> pinyin_list_list  = hanz2piny.toPinyinFromUtf8(line,numMap_, true, true, "-");
+    vector<pair<bool, vector<string>>> pinyin_list_list  = hanz2piny.toPinyinFromUtf8(line, numMap_, true, true, "-");
 
     int32_t * idList = new int32_t[maxSize];
     memset(idList,0,sizeof(int32_t)*maxSize);

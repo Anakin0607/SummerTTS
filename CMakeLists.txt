@@ -81,7 +81,14 @@ add_executable(tts_test
                ./src/models/Generator_MBB.cpp
                ./src/models/SynthesizerTrn.cpp)
 
-target_include_directories(tts_test PUBLIC ./eigen-3.4.0
-                                            ./src/tn/header
-                                              ./include
-                                              ./src/header)
+include_directories(tts_test PUBLIC ./eigen-3.4.0
+                                    ./src/tn/header
+                                    ./include
+                                    ./src/header)
+
+set(CMAKE_INSTALL_PREFIX "../summerTTS_install")                                            
+install(TARGETS tts_test)
+install(DIRECTORY include/ DESTINATION include)
+install(FILES test_eng.txt test.txt DESTINATION texts)
+
+install(DIRECTORY models/ DESTINATION models)

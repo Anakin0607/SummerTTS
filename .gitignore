@@ -1,0 +1,4 @@
+.vscode/*
+build*/*
+tts_test/*
+summerTTS_install/*
