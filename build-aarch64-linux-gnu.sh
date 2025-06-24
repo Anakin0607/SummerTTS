@@ -15,9 +15,15 @@ dir=build-aarch64-linux-gnu
 mkdir -p $dir
 cd $dir
 
+if [ $1 ];then
+  BUILD_SHARE_LIBS=$1
+else 
+  BUILD_SHARE_LIBS=ON
+fi
+
 cmake \
     -DCMAKE_TOOLCHAIN_FILE=./toolchains/aarch64-linux-gnu.toolchain.cmake \
-    -DBUILD_SHARED_LIBS=ON ..
+    -DBUILD_SHARED_LIBS=${BUILD_SHARE_LIBS} ..
 
 make -j8
 make install
