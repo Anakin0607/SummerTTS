@@ -5,8 +5,8 @@ project(tts_test)
 #set(CMAKE_CXX_FLAGS " -O3 -w -std=c++11 ")
 #set(CMAKE_C_FLAGS " -O3 -w -std=c++11 ")
 
-set(CMAKE_CXX_FLAGS " -O3 -fopenmp -std=c++11 ")
-set(CMAKE_C_FLAGS " -O3 -fopenmp -std=c++11 ")
+set(CMAKE_CXX_FLAGS " -g -fopenmp -std=c++11 -fPIC")
+set(CMAKE_C_FLAGS " -g -fopenmp -std=c++11 -fPIC")
 
 set(CMAKE_SKIP_BUILD_RPATH FALSE) # 编译时加上rpath
 set(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE) # 编译时不使用安装的rpath
